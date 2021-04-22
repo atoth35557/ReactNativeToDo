@@ -1,21 +1,29 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+// In App.js in a new project
 
-export default function App() {
+import * as React from "react";
+import * as eva from "@eva-design/eva";
+import { ApplicationProvider, IconRegistry } from "@ui-kitten/components";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { NavigationContainer } from "@react-navigation/native";
+import { AppNavigator } from "./src/navigation/AppNavigator";
+import { AppRoute } from "./src/navigation/app-routes";
+import { EvaIconsPack } from "@ui-kitten/eva-icons";
+
+const App = () => {
+  const isAuthorized: boolean = false;
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <>
+      <IconRegistry icons={EvaIconsPack} />
+      <ApplicationProvider {...eva} theme={eva.light}>
+        <SafeAreaProvider>
+          <NavigationContainer>
+            <AppNavigator initialRouteName={AppRoute.AUTH} />
+          </NavigationContainer>
+        </SafeAreaProvider>
+      </ApplicationProvider>
+    </>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
